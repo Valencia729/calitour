@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Botón de Me Gusta</title>
+    <style>
+        #like-btn {
+            padding: 10px 20px;
+            background-color: gray;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #like-btn.clicked {
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <button id="like-btn" onclick="likePage()">Me gusta <span id="like-count"><?php echo $likes_count; ?></span></button>
+
+    <script>
+        function likePage() {
+            const button = document.getElementById('like-btn');
+            button.classList.add('clicked');
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'like.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    document.getElementById('like-count').innerText = xhr.responseText;
+                }
+            };
+            xhr.send('id=<?php echo $id;?>'); 
+        }
+    </script>
+</body>
+</html>

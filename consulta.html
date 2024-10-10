@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<base target="_top">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="imagenes/favicon_io/favicon.ico">
+	<title>Cali tour 360°</title>
+	
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+    <link rel="stylesheet" href="leaflet.css">
+	<link rel="stylesheet" href="style.css">
+    <script src="leaflet2.js"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		.leaflet-container {
+			height: 100%;
+			width: 100%;
+			max-width: 100%;
+			max-height: 100%;
+		}
+		.wrapper {
+			display: grid;
+  			grid-template-columns:100%;
+			grid-template-rows:0.1fr 2fr 0.1fr;
+			height: 100%;
+			width: 100%;
+			max-width: 100%;
+			max-height: 100%;
+		}
+				
+		.header{
+			grid-column: 1;
+			grid-row: 1;
+			background-color: #66CCFF;
+			font-family: 'Poppins', sans-serif;
+			font-size: 30px;
+			color:white;
+			
+		}
+		.map {
+  			grid-column: 1;
+			grid-row: 2;
+  		}
+		
+		.footer {
+			grid-column: 1;
+			grid-row: 3;
+			background-color: #017F79;
+			font-family: 'Poppins', sans-serif;
+			font-size: 14px;
+			color:white;
+			text-align: right;
+			padding: 5px;
+			
+		}
+
+		.logo{
+			height: 50px;
+			padding-left: 20px;
+			padding-right: 10px;
+			padding-top: 5px;
+			vertical-align: middle;
+			
+		}
+	</style>
+
+	
+</head>
+<body>
+
+
+	<div class="wrapper">
+		<div class="header"><a href="http://calitour360.com/categorias.html"><img class="logo" src="imagenes/logo_texto.png" alt="Gestor de busquedas"></a></div>
+		<div class="map" id="map"></div>
+		<div class="footer">Sistema de Información Geográfica - Universidad del Valle 2024 </div>
+	</div>
+	  
+
+<script>
+
+	const map = L.map('map').setView([3.43722,-76.5225], 13);
+
+	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+
+	const popup = L.popup()
+		.setLatLng([3.43722,-76.5225])
+		.setContent('<div class=centrado><h2>Bienvenido a la sucursal del cielo👋</h2>Haga click en su ubicaci&oacute;n para comenzar</div>')
+		.openOn(map);
+
+	function onMapClick(e) {
+		popup
+			.setLatLng(e.latlng)
+			.setContent(`${e.latlng.toString()}`)
+			.openOn(map);
+	}
+
+	map.on('click', onMapClick);
+
+</script>
+</body>
+</html>
