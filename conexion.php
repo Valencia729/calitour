@@ -3,7 +3,7 @@
 $host = "localhost";
 $dbname = "proyecto_sig2";
 $user = "postgres";
-$password = "valencia";
+$password = "******";
 
 // Cadena de conexión
 $connection_string = "host=$host dbname=$dbname user=$user password=$password";
